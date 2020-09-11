@@ -23,7 +23,10 @@ public class Tank
     this(rowIndex, colIndex);
     curDirection = direction;
   }
-
+  
+	/**
+	Return the current row position
+	*/
   public int getRowPos()
   {
     return rowPos;
