@@ -71,7 +71,7 @@ public class Renderer
       System.out.print(Color.ANSI_RED + borderChar + Color.ANSI_RESET);
       for (j = 0; j < width; j++)
       {
-        System.out.print(bitmap[i][j]);
+        System.out.print(Color.ANSI_BLUE + bitmap[i][j] + Color.ANSI_RESET);
       }
       System.out.println(Color.ANSI_RED + borderChar + Color.ANSI_RESET);
     }
