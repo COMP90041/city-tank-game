@@ -47,7 +47,7 @@ public class Tank
     return height;
   }
 
-  public void move(Commands.Direction cmd)
+  public void move(Commands.Direction cmd, Renderer mainRenderer)
   {
     //Update the location or the current direction
     //based on the command received from the player
@@ -57,10 +57,10 @@ public class Tank
         switch (cmd)
         {
           case UP:
-            rowPos--;
+            if(! isCollision(mainRenderer, rowPos - 1, colPos)) rowPos--;
             break;
           case DOWN:
-            rowPos++;
+            if(! isCollision(mainRenderer, rowPos + 1, colPos)) rowPos++;
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -76,10 +76,10 @@ public class Tank
         switch (cmd)
         {
           case UP:
-            rowPos--;
+            if(! isCollision(mainRenderer, rowPos - 1, colPos)) rowPos--;
             break;
           case DOWN:
-            rowPos++;
+            if(! isCollision(mainRenderer, rowPos + 1, colPos)) rowPos++;
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -101,10 +101,10 @@ public class Tank
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            colPos--;
+            if(! isCollision(mainRenderer, rowPos, colPos - 1)) colPos--;
             break;
           case RIGHT:
-            colPos++;
+            if(! isCollision(mainRenderer, rowPos, colPos + 1)) colPos++;
             break;
           default:
             break;
@@ -120,10 +120,10 @@ public class Tank
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            colPos--;
+            if(! isCollision(mainRenderer, rowPos, colPos - 1)) colPos--;
             break;
           case RIGHT:
-            colPos++;
+            if(! isCollision(mainRenderer, rowPos, colPos + 1)) colPos++;
             break;
           default:
             break;
@@ -171,4 +171,25 @@ public class Tank
     }
     return bitmap;
   }
+
+  public boolean isCollision(Renderer mainRenderer, int rowPos, int colPos) {
+    // Collision check with the borders
+    if((rowPos + this.getHeight() > mainRenderer.getHeight()) || (colPos + this.getWidth() > mainRenderer.getWidth()) || rowPos < 0 || colPos < 0)
+      return true;
+    // Collision check with obstacles in the map
+    else {
+      char[][] bitmap = mainRenderer.getBitMap();
+
+      // Removes the player tank from the bitmap before checking for collision with enemy tanks
+      for (int i = 0; i < this.getHeight(); i++)
+        for (int j = 0; j < this.getWidth(); j++)
+          bitmap[this.getRowPos() + i][this.getColPos() + j] = ' ';
+
+      for (int i = 0; i < this.getHeight(); i++)
+        for (int j = 0; j < this.getWidth(); j++)
+         if(bitmap[rowPos + i][colPos + j] != ' ') return true;
+    }
+    return false;
+  }
+
 }

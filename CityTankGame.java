@@ -34,7 +34,7 @@ public class CityTankGame
 
       //Get user command
       System.out.println("Control your tank by typing a character and press Enter. ");
-      System.out.println("W: up, A: left, S: right, Z: down, Q: quit the game.");
+      System.out.println("W: up, A: left, D: right, S: down, Q: quit the game.");
       String tempString = keyboard.next();
       char option = Character.toLowerCase(tempString.charAt(0));
 
@@ -45,16 +45,16 @@ public class CityTankGame
       switch (option)
       {
         case 'w':
-          playerTank.move(Commands.Direction.UP);
-          break;
-        case 'z':
-          playerTank.move(Commands.Direction.DOWN);
-          break;
-        case 'a':
-          playerTank.move(Commands.Direction.LEFT);
+          playerTank.move(Commands.Direction.UP, mainRenderer);
           break;
         case 's':
-          playerTank.move(Commands.Direction.RIGHT);
+          playerTank.move(Commands.Direction.DOWN, mainRenderer);
+          break;
+        case 'a':
+          playerTank.move(Commands.Direction.LEFT, mainRenderer);
+          break;
+        case 'd':
+          playerTank.move(Commands.Direction.RIGHT, mainRenderer);
           break;
         default:
           //do nothing
