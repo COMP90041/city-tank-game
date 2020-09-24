@@ -61,5 +61,6 @@ public class CityTankGame
           break;
       }
     }  while (true);
+    keyboard.close();
   }
 }
