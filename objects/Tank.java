@@ -31,10 +31,12 @@ public class Tank extends Object
         switch (cmd)
         {
           case UP:
-            if(! isCollision(mainRenderer, getRowPos() - 1, getColPos())) setRowPos(getRowPos() - 1);
+            if(! isCollision(mainRenderer, getRowPos() - 1, getColPos()))
+              setRowPos(getRowPos() - 1);
             break;
           case DOWN:
-            if(! isCollision(mainRenderer, getRowPos() + 1, getColPos())) setRowPos(getRowPos() + 1);
+            if(! isCollision(mainRenderer, getRowPos() + 1, getColPos()))
+              setRowPos(getRowPos() + 1);
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -50,10 +52,12 @@ public class Tank extends Object
         switch (cmd)
         {
           case UP:
-            if(! isCollision(mainRenderer, getRowPos() - 1, getColPos())) setRowPos(getRowPos() - 1);
+            if(! isCollision(mainRenderer, getRowPos() - 1, getColPos()))
+              setRowPos(getRowPos() - 1);
             break;
           case DOWN:
-            if(! isCollision(mainRenderer, getRowPos() + 1, getColPos())) setRowPos(getRowPos() + 1);
+            if(! isCollision(mainRenderer, getRowPos() + 1, getColPos()))
+              setRowPos(getRowPos() + 1);
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -75,10 +79,12 @@ public class Tank extends Object
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1)) setColPos(getColPos() - 1);
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1))
+              setColPos(getColPos() - 1);
             break;
           case RIGHT:
-            if(! isCollision(mainRenderer, getRowPos(), getColPos() + 1)) setColPos(getColPos() + 1);
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() + 1))
+              setColPos(getColPos() + 1);
             break;
           default:
             break;
@@ -94,10 +100,12 @@ public class Tank extends Object
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1)) setColPos(getColPos() - 1);
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1))
+              setColPos(getColPos() - 1);
             break;
           case RIGHT:
-            if(! isCollision(mainRenderer, getRowPos(), getColPos() + 1)) setColPos(getColPos() + 1);
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() + 1))
+              setColPos(getColPos() + 1);
             break;
           default:
             break;
@@ -142,7 +150,7 @@ public class Tank extends Object
     return bitmap;
   }
 
-  public boolean isCollision(Renderer mainRenderer, int rowPos, int colPos) {
+  private boolean isCollision(Renderer mainRenderer, int rowPos, int colPos) {
     // Collision check with the borders
     if((rowPos + this.getHeight() > mainRenderer.getHeight()) || (colPos + this.getWidth() > mainRenderer.getWidth()) || rowPos < 0 || colPos < 0)
       return true;
