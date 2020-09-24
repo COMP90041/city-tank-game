@@ -57,10 +57,12 @@ public class Tank
         switch (cmd)
         {
           case UP:
-            if(! isCollision(mainRenderer, rowPos - 1, colPos)) rowPos--;
+            if(! isCollision(mainRenderer, rowPos - 1, colPos))
+              rowPos--;
             break;
           case DOWN:
-            if(! isCollision(mainRenderer, rowPos + 1, colPos)) rowPos++;
+            if(! isCollision(mainRenderer, rowPos + 1, colPos))
+              rowPos++;
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -76,10 +78,12 @@ public class Tank
         switch (cmd)
         {
           case UP:
-            if(! isCollision(mainRenderer, rowPos - 1, colPos)) rowPos--;
+            if(! isCollision(mainRenderer, rowPos - 1, colPos))
+              rowPos--;
             break;
           case DOWN:
-            if(! isCollision(mainRenderer, rowPos + 1, colPos)) rowPos++;
+            if(! isCollision(mainRenderer, rowPos + 1, colPos))
+              rowPos++;
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -101,10 +105,12 @@ public class Tank
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            if(! isCollision(mainRenderer, rowPos, colPos - 1)) colPos--;
+            if(! isCollision(mainRenderer, rowPos, colPos - 1))
+              colPos--;
             break;
           case RIGHT:
-            if(! isCollision(mainRenderer, rowPos, colPos + 1)) colPos++;
+            if(! isCollision(mainRenderer, rowPos, colPos + 1))
+              colPos++;
             break;
           default:
             break;
@@ -120,10 +126,12 @@ public class Tank
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            if(! isCollision(mainRenderer, rowPos, colPos - 1)) colPos--;
+            if(! isCollision(mainRenderer, rowPos, colPos - 1))
+              colPos--;
             break;
           case RIGHT:
-            if(! isCollision(mainRenderer, rowPos, colPos + 1)) colPos++;
+            if(! isCollision(mainRenderer, rowPos, colPos + 1))
+              colPos++;
             break;
           default:
             break;
@@ -172,7 +180,7 @@ public class Tank
     return bitmap;
   }
 
-  public boolean isCollision(Renderer mainRenderer, int rowPos, int colPos) {
+  private boolean isCollision(Renderer mainRenderer, int rowPos, int colPos) {
     // Collision check with the borders
     if((rowPos + this.getHeight() > mainRenderer.getHeight()) || (colPos + this.getWidth() > mainRenderer.getWidth()) || rowPos < 0 || colPos < 0)
       return true;
