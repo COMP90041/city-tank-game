@@ -3,7 +3,7 @@ package objects;
 import graphics.*;
 import utilities.*;
 
-public class Tank extends Object
+public class Tank extends GameObject
 {
   //private int rowPos, colPos;
   private Commands.Direction curDirection;

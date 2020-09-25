@@ -1,11 +1,11 @@
 package objects;
 
-public class Object {
+public class GameObject {
     private int rowPos, colPos;
     private int width, height;
     private String color;
 
-    public Object(int rowIndex, int colIndex, int width, int height) {
+    public GameObject(int rowIndex, int colIndex, int width, int height) {
         rowPos = rowIndex;
         colPos = colIndex;
         this.width = width;
