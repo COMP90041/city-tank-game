@@ -3,19 +3,16 @@ package objects;
 import graphics.*;
 import utilities.*;
 
-public class Tank
+public class Tank extends GameObject
 {
-  private int rowPos, colPos;
+  //private int rowPos, colPos;
   private Commands.Direction curDirection;
-  private int width, height;
+  //private int width, height;
 
   public Tank(int rowIndex, int colIndex)
   {
-    rowPos = rowIndex;
-    colPos = colIndex;
+    super(rowIndex, colIndex, 5, 5);
     curDirection = Commands.Direction.UP;
-    width = 5;
-    height = 5;
   }
 
   public Tank(int rowIndex, int colIndex, Commands.Direction direction)
@@ -23,31 +20,8 @@ public class Tank
     this(rowIndex, colIndex);
     curDirection = direction;
   }
-  
-	/**
-	Return the current row position
-	*/
-  public int getRowPos()
-  {
-    return rowPos;
-  }
 
-  public int getColPos()
-  {
-    return colPos;
-  }
-
-  public int getWidth()
-  {
-    return width;
-  }
-
-  public int getHeight()
-  {
-    return height;
-  }
-
-  public void move(Commands.Direction cmd)
+  public void move(Commands.Direction cmd, Renderer mainRenderer)
   {
     //Update the location or the current direction
     //based on the command received from the player
@@ -57,10 +31,12 @@ public class Tank
         switch (cmd)
         {
           case UP:
-            rowPos--;
+            if(! isCollision(mainRenderer, getRowPos() - 1, getColPos()))
+              setRowPos(getRowPos() - 1);
             break;
           case DOWN:
-            rowPos++;
+            if(! isCollision(mainRenderer, getRowPos() + 1, getColPos()))
+              setRowPos(getRowPos() + 1);
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -76,10 +52,12 @@ public class Tank
         switch (cmd)
         {
           case UP:
-            rowPos--;
+            if(! isCollision(mainRenderer, getRowPos() - 1, getColPos()))
+              setRowPos(getRowPos() - 1);
             break;
           case DOWN:
-            rowPos++;
+            if(! isCollision(mainRenderer, getRowPos() + 1, getColPos()))
+              setRowPos(getRowPos() + 1);
             break;
           case LEFT:
             curDirection = Commands.Direction.LEFT;
@@ -101,10 +79,12 @@ public class Tank
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            colPos--;
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1))
+              setColPos(getColPos() - 1);
             break;
           case RIGHT:
-            colPos++;
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() + 1))
+              setColPos(getColPos() + 1);
             break;
           default:
             break;
@@ -120,10 +100,12 @@ public class Tank
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            colPos--;
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1))
+              setColPos(getColPos() - 1);
             break;
           case RIGHT:
-            colPos++;
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() + 1))
+              setColPos(getColPos() + 1);
             break;
           default:
             break;
@@ -134,15 +116,11 @@ public class Tank
     }
   }
 
+  // Overriding draw() in Object class to make tank shape
   public char[][] draw()
   {
     //allocate a bitmap for the tank
-    char[][] bitmap = new char[getHeight()][getWidth()];
-    for (int i = 0; i < getHeight(); i++)
-      for (int j = 0; j < getWidth(); j++)
-      {
-        bitmap[i][j] = '*';
-      }
+    char[][] bitmap = super.draw();
 
     //update the bitmap accordingly
     //based on the current direction
@@ -171,4 +149,25 @@ public class Tank
     }
     return bitmap;
   }
+
+  private boolean isCollision(Renderer mainRenderer, int rowPos, int colPos) {
+    // Collision check with the borders
+    if((rowPos + this.getHeight() > mainRenderer.getHeight()) || (colPos + this.getWidth() > mainRenderer.getWidth()) || rowPos < 0 || colPos < 0)
+      return true;
+    // Collision check with obstacles in the map
+    else {
+      char[][] bitmap = mainRenderer.getBitMap();
+
+      // Removes the player tank from the bitmap before checking for collision with enemy tanks
+      for (int i = 0; i < this.getHeight(); i++)
+        for (int j = 0; j < this.getWidth(); j++)
+          bitmap[this.getRowPos() + i][this.getColPos() + j] = ' ';
+
+      for (int i = 0; i < this.getHeight(); i++)
+        for (int j = 0; j < this.getWidth(); j++)
+         if(bitmap[rowPos + i][colPos + j] != ' ') return true;
+    }
+    return false;
+  }
+
 }

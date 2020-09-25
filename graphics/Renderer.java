@@ -7,6 +7,7 @@ public class Renderer
   private Tank[] tanks;
   private int tankCount;
   private int width, height;
+  private char[][] bitmap;
 
   private char borderChar = '.';
 
@@ -16,6 +17,26 @@ public class Renderer
     height = aHeight;
     tanks = new Tank[21];
     tankCount = 0;
+  }
+
+  public int getTankCount() {
+    return tankCount;
+  }
+
+  public Tank[] getTanks() {
+    return tanks;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public char[][] getBitMap() {
+    return bitmap;
   }
 
   public void addTank(Tank aTank)
@@ -35,7 +56,7 @@ public class Renderer
   public void render()
   {
     int i, j;
-    char[][] bitmap = new char[height][width];
+    bitmap = new char[height][width];
     //clear the screen
     for (i = 0; i < height; i++)
     {

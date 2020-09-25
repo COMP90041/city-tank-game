@@ -45,21 +45,22 @@ public class CityTankGame
       switch (option)
       {
         case 'w':
-          playerTank.move(Commands.Direction.UP);
+          playerTank.move(Commands.Direction.UP, mainRenderer);
           break;
         case 'z':
-          playerTank.move(Commands.Direction.DOWN);
+          playerTank.move(Commands.Direction.DOWN, mainRenderer);
           break;
         case 'a':
-          playerTank.move(Commands.Direction.LEFT);
+          playerTank.move(Commands.Direction.LEFT, mainRenderer);
           break;
         case 's':
-          playerTank.move(Commands.Direction.RIGHT);
+          playerTank.move(Commands.Direction.RIGHT, mainRenderer);
           break;
         default:
           //do nothing
           break;
       }
     }  while (true);
+    keyboard.close();
   }
 }
