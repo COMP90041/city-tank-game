@@ -5,9 +5,7 @@ import utilities.*;
 
 public class Tank extends GameObject
 {
-  //private int rowPos, colPos;
   private Commands.Direction curDirection;
-  //private int width, height;
 
   public Tank(int rowIndex, int colIndex)
   {
