@@ -45,10 +45,18 @@ public class GameObject {
     }
 
     public char[][] draw() {
+        char objectSymbol = '*';
+        if(this instanceof Tank)
+            objectSymbol = '*';
+        else if(this instanceof Stone)
+            objectSymbol = '$';
+        else if(this instanceof Brick)
+            objectSymbol = '#';
+
         char[][] bitmap = new char[getHeight()][getWidth()];
         for (int i = 0; i < getHeight(); i++)
             for (int j = 0; j < getWidth(); j++)
-                bitmap[i][j] = '*';
+                bitmap[i][j] = objectSymbol;
         return bitmap;
     }
 }

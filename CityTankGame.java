@@ -17,11 +17,23 @@ public class CityTankGame
     Tank enemyTank1 = new Tank(5, 20, Commands.Direction.DOWN);
     Tank enemyTank2 = new Tank(5, 60, Commands.Direction.RIGHT);
 
+    Stone stone1 = new Stone(10, 20);
+    Stone stone2 = new Stone(12, 20);
+    Stone stone3 = new Stone(30, 38);
+    Stone stone4 = new Stone(30, 40);
+    Stone stone5 = new Stone(32, 36);
+
     //Create the main renderer and add player tank
     Renderer mainRenderer = new Renderer(80, 40);
     mainRenderer.addTank(playerTank);
     mainRenderer.addTank(enemyTank1);
     mainRenderer.addTank(enemyTank2);
+
+    mainRenderer.addStone(stone1);
+    mainRenderer.addStone(stone2);
+    mainRenderer.addStone(stone3);
+    mainRenderer.addStone(stone4);
+    mainRenderer.addStone(stone5);
 
     //The main game loop
     do

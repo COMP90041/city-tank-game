@@ -5,7 +5,13 @@ import objects.*;
 public class Renderer
 {
   private Tank[] tanks;
+  private Stone[] stones;
+  private Brick[] bricks;
+
   private int tankCount;
+  private int stoneCount;
+  private int brickCount;
+
   private int width, height;
   private char[][] bitmap;
 
@@ -16,7 +22,9 @@ public class Renderer
     width = aWidth;
     height = aHeight;
     tanks = new Tank[21];
-    tankCount = 0;
+    stones = new Stone[30];
+    bricks = new Brick[40];
+    tankCount = stoneCount = brickCount = 0;
   }
 
   public int getTankCount() {
@@ -25,6 +33,22 @@ public class Renderer
 
   public Tank[] getTanks() {
     return tanks;
+  }
+
+  public int getStoneCount() {
+    return stoneCount;
+  }
+
+  public Stone[] getStones() {
+    return stones;
+  }
+
+  public int getBrickCount() {
+    return brickCount;
+  }
+
+  public Brick[] getBricks() {
+    return bricks;
   }
 
   public int getHeight() {
@@ -53,6 +77,34 @@ public class Renderer
     }
   }
 
+  public void addStone(Stone aStone)
+  {
+    if (stoneCount < 30)
+    {
+      stones[stoneCount] = aStone;
+      stoneCount++;
+    }
+    else
+    {
+      System.out.println("Fatal Error!");
+      System.exit(1);
+    }
+  }
+
+  public void addBrick(Brick aBrick)
+  {
+    if (brickCount < 40)
+    {
+      bricks[brickCount] = aBrick;
+      brickCount++;
+    }
+    else
+    {
+      System.out.println("Fatal Error!");
+      System.exit(1);
+    }
+  }
+
   public void render()
   {
     int i, j;
@@ -65,7 +117,9 @@ public class Renderer
         bitmap[i][j] = ' ';
       }
     }
-    //render objects
+    
+    // render objects
+    // render tanks
     for (int index = 0; index < tankCount; index++)
     {
       Tank aTank = tanks[index];
@@ -78,6 +132,35 @@ public class Renderer
         }
       }
     }
+
+    // render stones
+    for (int index = 0; index < stoneCount; index++)
+    {
+      Stone aStone = stones[index];
+      char[][] aStoneBitmap = aStone.draw();
+      for (i = 0; i < aStone.getHeight(); i++)
+      {
+        for (j = 0; j < aStone.getWidth(); j++)
+        {
+          bitmap[aStone.getRowPos() + i][aStone.getColPos() + j] = aStoneBitmap[i][j];
+        }
+      }
+    }
+
+    // render bricks
+    for (int index = 0; index < brickCount; index++)
+    {
+      Brick aBrick = bricks[index];
+      char[][] aBrickBitmap = aBrick.draw();
+      for (i = 0; i < aBrick.getHeight(); i++)
+      {
+        for (j = 0; j < aBrick.getWidth(); j++)
+        {
+          bitmap[aBrick.getRowPos() + i][aBrick.getColPos() + j] = aBrickBitmap[i][j];
+        }
+      }
+    }
+
     //output to the screen
     //including the border
     for (i = 0; i < width + 2; i++)
