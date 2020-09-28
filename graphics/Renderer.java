@@ -14,6 +14,7 @@ public class Renderer
 
   private int width, height;
   private char[][] bitmap;
+  private String[][] colourBitmap;
 
   private char borderChar = '.';
 
@@ -109,12 +110,15 @@ public class Renderer
   {
     int i, j;
     bitmap = new char[height][width];
+    colourBitmap = new String[height][width];
+
     //clear the screen
     for (i = 0; i < height; i++)
     {
       for (j = 0; j < width; j++)
       {
         bitmap[i][j] = ' ';
+        colourBitmap[i][j] = "";
       }
     }
     
@@ -123,12 +127,14 @@ public class Renderer
     for (int index = 0; index < tankCount; index++)
     {
       Tank aTank = tanks[index];
+      String tankColour = aTank.getColor();
       char[][] aTankBitmap = aTank.draw();
       for (i = 0; i < aTank.getHeight(); i++)
       {
         for (j = 0; j < aTank.getWidth(); j++)
         {
           bitmap[aTank.getRowPos() + i][aTank.getColPos() + j] = aTankBitmap[i][j];
+          colourBitmap[aTank.getRowPos() + i][aTank.getColPos() + j] = tankColour;
         }
       }
     }
@@ -137,12 +143,14 @@ public class Renderer
     for (int index = 0; index < stoneCount; index++)
     {
       Stone aStone = stones[index];
+      String stoneColour = aStone.getColor();
       char[][] aStoneBitmap = aStone.draw();
       for (i = 0; i < aStone.getHeight(); i++)
       {
         for (j = 0; j < aStone.getWidth(); j++)
         {
           bitmap[aStone.getRowPos() + i][aStone.getColPos() + j] = aStoneBitmap[i][j];
+          colourBitmap[aStone.getRowPos() + i][aStone.getColPos() + j] = stoneColour;
         }
       }
     }
@@ -151,12 +159,14 @@ public class Renderer
     for (int index = 0; index < brickCount; index++)
     {
       Brick aBrick = bricks[index];
+      String brickColour = aBrick.getColor();
       char[][] aBrickBitmap = aBrick.draw();
       for (i = 0; i < aBrick.getHeight(); i++)
       {
         for (j = 0; j < aBrick.getWidth(); j++)
         {
           bitmap[aBrick.getRowPos() + i][aBrick.getColPos() + j] = aBrickBitmap[i][j];
+          colourBitmap[aBrick.getRowPos() + i][aBrick.getColPos() + j] = brickColour;
         }
       }
     }
@@ -175,7 +185,7 @@ public class Renderer
       System.out.print(Color.ANSI_RED + borderChar + Color.ANSI_RESET);
       for (j = 0; j < width; j++)
       {
-        System.out.print(bitmap[i][j]);
+          System.out.print(colourBitmap[i][j] + bitmap[i][j] + Color.ANSI_RESET);
       }
       System.out.println(Color.ANSI_RED + borderChar + Color.ANSI_RESET);
     }

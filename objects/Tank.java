@@ -9,7 +9,7 @@ public class Tank extends GameObject
 
   public Tank(int rowIndex, int colIndex)
   {
-    super(rowIndex, colIndex, 5, 5);
+    super(rowIndex, colIndex, 5, 5, Color.ANSI_BLUE);
     curDirection = Commands.Direction.UP;
   }
 
