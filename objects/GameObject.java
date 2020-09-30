@@ -5,11 +5,12 @@ public class GameObject {
     private int width, height;
     private String color;
 
-    public GameObject(int rowIndex, int colIndex, int width, int height) {
+    public GameObject(int rowIndex, int colIndex, int width, int height, String color) {
         rowPos = rowIndex;
         colPos = colIndex;
         this.width = width;
         this.height = height;
+        this.color = color;
     }
 
     public int getRowPos() {
