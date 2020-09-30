@@ -12,6 +12,7 @@ public class CityTankGame
 
     //Create a player tank
     Tank playerTank = new Tank(35, 38);
+    playerTank.setColor(Color.ANSI_RED);
 
     //Create a few enemy tanks
     Tank enemyTank1 = new Tank(5, 20, Commands.Direction.DOWN);
