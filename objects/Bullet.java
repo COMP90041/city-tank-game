@@ -47,8 +47,8 @@ public class Bullet extends GameObject{
 	        	  		       
 		              		            		
 		                for (int j = rowPos; j < rowPos - maxDistance; j--) {
-		                  if (bitmap[j][colPos + 2] == '*' || bitmap[j][colPos + 2] == '$' ) {
-		                  	maxDistance = Math.min(maxDistance, colPos - j);		                  	
+		                  if (bitmap[6][21] == '*' || bitmap[colPos + 2][j] == '$' ) {
+		                  	maxDistance = Math.min(maxDistance, 5);		                  	
 		                  }
 		                }	
 		              
@@ -98,7 +98,7 @@ public class Bullet extends GameObject{
 		              break;
 		          case RIGHT:
 		        	// check if the bullet hit the border
-		        	  maxDistance = Math.min(bulletDistance, mainRenderer.getWidth() - colPos - 6);	
+		        	  maxDistance = Math.min(bulletDistance, mainRenderer.getWidth() - colPos - 5);	
 		        	  
 		        	  
 		        	  // check if hit other objects
@@ -106,7 +106,7 @@ public class Bullet extends GameObject{
 		              		            		
 		                for (int j = colPos+5; j < colPos + 5 + maxDistance; j++) {
 		                  if (bitmap[rowPos+2][j] == '*' || bitmap[rowPos+2][j] == '$' ) {
-		                  	maxDistance = Math.min(maxDistance, colPos + 5 - j);		                  	
+		                  	maxDistance = Math.min(maxDistance, j - colPos -5);		                  	
 		                  }
 		                }	
 		              

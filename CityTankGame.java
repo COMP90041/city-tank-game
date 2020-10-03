@@ -64,6 +64,8 @@ public class CityTankGame
       //Get user command
       System.out.println("Control your tank by typing a character and press Enter. ");
       System.out.println("W: up, A: left, S: right, Z: down, Q: quit the game.");
+      
+      
       String tempString = keyboard.next();
       char option = Character.toLowerCase(tempString.charAt(0));
 

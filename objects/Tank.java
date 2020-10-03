@@ -115,7 +115,7 @@ public class Tank extends GameObject
     }
     
     curDirection = cmd;
-
+    
     
   }
 
