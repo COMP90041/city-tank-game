@@ -113,6 +113,8 @@ public class Tank extends GameObject
       default:
         break;
     }
+    
+    curDirection = cmd;
 
     
   }
@@ -166,7 +168,7 @@ public class Tank extends GameObject
 
       for (int i = 0; i < this.getHeight(); i++)
         for (int j = 0; j < this.getWidth(); j++)
-         if(bitmap[rowPos + i][colPos + j] != ' ') return true;
+         if(bitmap[rowPos + i][colPos + j] == '*' || bitmap[rowPos + i][colPos + j] == '$' || bitmap[rowPos + i][colPos + j] == '#') return true;
     }
     return false;
   }

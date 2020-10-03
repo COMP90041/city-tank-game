@@ -4,14 +4,16 @@ import graphics.*;
 import utilities.*;
 
 public class Bullet extends GameObject{
-
+	
+	private static final int DEFAULTBULLETDISTANCE = 10;
 
 	private int maxDistance;
+	private int bulletDistance = DEFAULTBULLETDISTANCE;
 	
 	
 	  public Bullet(int rowIndex, int colIndex)
 	  {
-		  super(rowIndex, colIndex, 1, 10, Color.ANSI_BLACK);
+		  super(rowIndex, colIndex, 1, DEFAULTBULLETDISTANCE, Color.ANSI_BLACK);
 	  }
 	  public Bullet(int rowIndex, int colIndex, int width, int height)
 	  {
@@ -29,27 +31,90 @@ public class Bullet extends GameObject{
 	      return super.draw();
 	  }
 	 
-	  public void shootDirection (int rowPos, int colPos, int bulletDistance, int BORDERHEIGHT, int BORDERWIDTH, Commands.Direction direction) {
-		    // Hit check with the borders
-		  	
+	  public void shootDirection (int rowPos, int colPos, Commands.Direction direction, Renderer mainRenderer) {
+		  
+		  char[][] bitmap = mainRenderer.getBitMap();
+		  // Hit check with the objects
+		  				  
 		  		switch (direction)
 		        {
 		          case UP:
-		        	  	maxDistance = Math.min(bulletDistance, BORDERHEIGHT - rowPos - 1);	
-		        	  	setHeight(maxDistance);
+		        	  // check if the bullet hit the border
+		        	  maxDistance = Math.min(bulletDistance, rowPos);	
+		        	  
+		        	  
+		        	  // check if hit other objects
+	        	  		       
+		              		            		
+		                for (int j = rowPos; j < rowPos - maxDistance; j--) {
+		                  if (bitmap[j][colPos + 2] == '*' || bitmap[j][colPos + 2] == '$' ) {
+		                  	maxDistance = Math.min(maxDistance, colPos - j);		                  	
+		                  }
+		                }	
+		              
+		  			  setColPos(colPos + 2);
+		              setRowPos(rowPos - maxDistance);
+		              setHeight(maxDistance);
+		              setWidth(1);
+		              
 		            break;
 		          case DOWN:
-		        	  	maxDistance = Math.min(bulletDistance, rowPos-1);
-		        	  	setHeight(-maxDistance);
+		        	// check if the bullet hit the border
+		        	  maxDistance = Math.min(bulletDistance, mainRenderer.getHeight()-rowPos-5);	
+		        	  
+		        	  
+		        	  // check if hit other objects
+		        	  	       
+		              		            		
+		                for (int j = rowPos; j < rowPos + maxDistance; j++) {
+		                  if (bitmap[j][colPos + 2] == '*' || bitmap[j][colPos + 2] == '$' ) {
+		                  	maxDistance = Math.min(maxDistance, colPos - j);		                  	
+		                  }
+		                }	
+		              
+		  			  setColPos(colPos + 2);
+		              setRowPos(rowPos +5);
+		              setHeight(maxDistance);
+		              setWidth(1);
 		            break;
 		          case LEFT:
-		        	  	maxDistance = Math.min(bulletDistance, colPos-1);
-		        	  	setWidth(-maxDistance);
-		            break;
+		        	// check if the bullet hit the border
+		        	  maxDistance = Math.min(bulletDistance, colPos);	
+		        	  
+		        	  
+		        	  // check if hit other objects
+		        	  	       
+		              		            		
+		                for (int j = colPos; j < rowPos - maxDistance; j--) {
+		                  if (bitmap[rowPos+2][j] == '*' || bitmap[rowPos+2][j] == '$' ) {
+		                  	maxDistance = Math.min(maxDistance, colPos - j);		                  	
+		                  }
+		                }	
+		              
+		  			  setColPos(colPos-maxDistance);
+		              setRowPos(rowPos+2);
+		              setHeight(1);
+		              setWidth(maxDistance);
+		              break;
 		          case RIGHT:
-		        	  	maxDistance = Math.min(bulletDistance, BORDERWIDTH -colPos -1);
-		        	  	setWidth(maxDistance);
-		            break;
+		        	// check if the bullet hit the border
+		        	  maxDistance = Math.min(bulletDistance, mainRenderer.getWidth() - colPos - 6);	
+		        	  
+		        	  
+		        	  // check if hit other objects
+		        	  	       
+		              		            		
+		                for (int j = colPos+5; j < colPos + 5 + maxDistance; j++) {
+		                  if (bitmap[rowPos+2][j] == '*' || bitmap[rowPos+2][j] == '$' ) {
+		                  	maxDistance = Math.min(maxDistance, colPos + 5 - j);		                  	
+		                  }
+		                }	
+		              
+		  			  setColPos(colPos+5);
+		              setRowPos(rowPos+2);
+		              setHeight(1);
+		              setWidth(maxDistance);
+		            break; 
 		          default:
 		            break;
 		        }		
@@ -59,7 +124,37 @@ public class Bullet extends GameObject{
 	    
 		  
 	 }
-
+	  
+	 /*
+	  public void shootDistance (int height, int width, Commands.Direction direction) {
+		  
+		  bulletDistance = Math.max(height,  width);
+		  
+		  switch (direction)
+	        {
+	          case UP:
+	        	  	maxDistance = Math.min(bulletDistance, BORDERHEIGHT - rowPos - 1);	
+	        	  	setHeight(maxDistance);
+	            break;
+	          case DOWN:
+	        	  	maxDistance = Math.min(bulletDistance, rowPos-1);
+	        	  	setHeight(-maxDistance);
+	            break;
+	          case LEFT:
+	        	  	maxDistance = Math.min(bulletDistance, colPos-1);
+	        	  	setWidth(-maxDistance);
+	            break;
+	          case RIGHT:
+	        	  	maxDistance = Math.min(bulletDistance, BORDERWIDTH -colPos -1);
+	        	  	setWidth(maxDistance);
+	            break;
+	          default:
+	            break;
+	        }	
+		  
+		  
+	  }
+*/
 	  
 	 /* private char shootCheck (Renderer mainRenderer, int rowPos, int colPos, int bulletDistance, Commands.Direction direction) {
 		 

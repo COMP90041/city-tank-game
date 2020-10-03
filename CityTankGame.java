@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class CityTankGame
 {
-	private static final int BORDERWIDTH = 40;
-	private static final int BORDERHEIGHT = 80;
+	private static final int BORDERWIDTH = 80;
+	private static final int BORDERHEIGHT = 40;
 	
 	
 	
@@ -31,12 +31,12 @@ public class CityTankGame
 
     Stone stone1 = new Stone(10, 20);
     Stone stone2 = new Stone(12, 20);
-    Stone stone3 = new Stone(30, 38);
-    Stone stone4 = new Stone(30, 40);
-    Stone stone5 = new Stone(32, 36);
+    Stone stone3 = new Stone(20, 38);
+    Stone stone4 = new Stone(20, 40);
+    Stone stone5 = new Stone(20, 36);
 
     //Create the main renderer and add player tank, bullet and stone
-    Renderer mainRenderer = new Renderer(BORDERHEIGHT, BORDERWIDTH);
+    Renderer mainRenderer = new Renderer(BORDERWIDTH, BORDERHEIGHT);
     mainRenderer.addTank(playerTank);
     mainRenderer.addTank(enemyTank1);
     mainRenderer.addTank(enemyTank2);
@@ -75,24 +75,27 @@ public class CityTankGame
       {
         case 'w':
           playerTank.move(Commands.Direction.UP, mainRenderer);
-          
+          playerTankBullet.shootDirection(playerTank.getRowPos(), playerTank.getColPos(), Commands.Direction.UP, mainRenderer);
+                           
           break;
         case 'z':
           playerTank.move(Commands.Direction.DOWN, mainRenderer);
+          playerTankBullet.shootDirection(playerTank.getRowPos(), playerTank.getColPos(), Commands.Direction.DOWN, mainRenderer);
           
           break;
         case 'a':
           playerTank.move(Commands.Direction.LEFT, mainRenderer);
-          
+          playerTankBullet.shootDirection(playerTank.getRowPos(), playerTank.getColPos(), Commands.Direction.LEFT, mainRenderer);
           break;
         case 's':
           playerTank.move(Commands.Direction.RIGHT, mainRenderer);
-          
+          playerTankBullet.shootDirection(playerTank.getRowPos(), playerTank.getColPos(), Commands.Direction.RIGHT, mainRenderer);
           break;
         default:
           //do nothing
           break;
       }
+      
     }  while (true);
     keyboard.close();
   }
