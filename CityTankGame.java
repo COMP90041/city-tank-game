@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 public class CityTankGame
 {
+	private static final int BORDERWIDTH = 40;
+	private static final int BORDERHEIGHT = 80;
+	
+	
+	
   public static void main(String[] args)
   {
     //Create a scanner to take user input
@@ -17,6 +22,12 @@ public class CityTankGame
     //Create a few enemy tanks
     Tank enemyTank1 = new Tank(5, 20, Commands.Direction.DOWN);
     Tank enemyTank2 = new Tank(5, 60, Commands.Direction.RIGHT);
+    
+    Bullet playerTankBullet = new Bullet(25, 40, 10, 1);
+    Bullet enemyTank1Bullet = new Bullet(10, 22, 10, 1);
+    Bullet enemyTank2Bullet = new Bullet(7, 65, 1, 10);
+    
+    
 
     Stone stone1 = new Stone(10, 20);
     Stone stone2 = new Stone(12, 20);
@@ -24,17 +35,22 @@ public class CityTankGame
     Stone stone4 = new Stone(30, 40);
     Stone stone5 = new Stone(32, 36);
 
-    //Create the main renderer and add player tank
-    Renderer mainRenderer = new Renderer(80, 40);
+    //Create the main renderer and add player tank, bullet and stone
+    Renderer mainRenderer = new Renderer(BORDERHEIGHT, BORDERWIDTH);
     mainRenderer.addTank(playerTank);
     mainRenderer.addTank(enemyTank1);
     mainRenderer.addTank(enemyTank2);
-
+    
+    mainRenderer.addBullet(playerTankBullet);
+    mainRenderer.addBullet(enemyTank1Bullet);
+    mainRenderer.addBullet(enemyTank2Bullet);   
+    
     mainRenderer.addStone(stone1);
     mainRenderer.addStone(stone2);
     mainRenderer.addStone(stone3);
     mainRenderer.addStone(stone4);
     mainRenderer.addStone(stone5);
+    
 
     //The main game loop
     do
@@ -59,15 +75,19 @@ public class CityTankGame
       {
         case 'w':
           playerTank.move(Commands.Direction.UP, mainRenderer);
+          
           break;
         case 'z':
           playerTank.move(Commands.Direction.DOWN, mainRenderer);
+          
           break;
         case 'a':
           playerTank.move(Commands.Direction.LEFT, mainRenderer);
+          
           break;
         case 's':
           playerTank.move(Commands.Direction.RIGHT, mainRenderer);
+          
           break;
         default:
           //do nothing

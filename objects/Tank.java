@@ -6,6 +6,7 @@ import utilities.*;
 public class Tank extends GameObject
 {
   private Commands.Direction curDirection;
+  private boolean checkCollision;
 
   public Tank(int rowIndex, int colIndex)
   {
@@ -98,7 +99,7 @@ public class Tank extends GameObject
             curDirection = Commands.Direction.DOWN;
             break;
           case LEFT:
-            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1))
+            if(! isCollision(mainRenderer, getRowPos(), getColPos() - 1)) 
               setColPos(getColPos() - 1);
             break;
           case RIGHT:
@@ -112,6 +113,8 @@ public class Tank extends GameObject
       default:
         break;
     }
+
+    
   }
 
   // Overriding draw() in Object class to make tank shape

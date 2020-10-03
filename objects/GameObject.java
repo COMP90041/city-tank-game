@@ -5,7 +5,7 @@ public class GameObject {
     private int width, height;
     private String color;
 
-    public GameObject(int rowIndex, int colIndex, int width, int height, String color) {
+    public GameObject(int rowIndex, int colIndex, int height, int width, String color) {
         rowPos = rowIndex;
         colPos = colIndex;
         this.width = width;
@@ -25,7 +25,15 @@ public class GameObject {
       return colPos;
     }
 
-    public void setColPos(int colPos) {
+    public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public void setColPos(int colPos) {
         this.colPos = colPos;
     }
 
@@ -53,6 +61,8 @@ public class GameObject {
             objectSymbol = '$';
         else if(this instanceof Brick)
             objectSymbol = '#';
+        else if(this instanceof Bullet)
+        	objectSymbol = '.';
 
         char[][] bitmap = new char[getHeight()][getWidth()];
         for (int i = 0; i < getHeight(); i++)
