@@ -114,6 +114,35 @@ public class Tank extends GameObject
     }
   }
 
+  public Bullet fire()
+  {
+    int row = 0, col = 0;
+
+    switch (curDirection)
+    {
+      case UP:
+        row = getRowPos() - 1;
+        col = getColPos() + 2;
+        break;
+      case DOWN:
+        row = getRowPos() + 5;
+        col = getColPos() + 2;
+        break;
+      case LEFT:
+        row = getRowPos() + 2;
+        col = getColPos() - 1;
+        break;
+      case RIGHT:
+        row = getRowPos() + 2;
+        col = getColPos() + 5;
+        break;
+      default:
+        break;
+    }
+    Bullet newBullet = new Bullet(row, col, this.curDirection);
+    return newBullet;
+  }
+
   // Overriding draw() in Object class to make tank shape
   public char[][] draw()
   {

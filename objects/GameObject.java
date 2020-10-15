@@ -4,6 +4,7 @@ public class GameObject {
     private int rowPos, colPos;
     private int width, height;
     private String color;
+    private boolean alive;
 
     public GameObject(int rowIndex, int colIndex, int width, int height, String color) {
         rowPos = rowIndex;
@@ -11,6 +12,7 @@ public class GameObject {
         this.width = width;
         this.height = height;
         this.color = color;
+        this.alive = true;
     }
 
     public int getRowPos() {
@@ -45,14 +47,24 @@ public class GameObject {
         this.color = color;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean status) {
+        this.alive = status;
+    }
+
     public char[][] draw() {
         char objectSymbol = '*';
         if(this instanceof Tank)
             objectSymbol = '*';
         else if(this instanceof Stone)
-            objectSymbol = '$';
+            objectSymbol = 0x250C; //0x250C is the Unicode ID of the character 218 in the ASCII table
         else if(this instanceof Brick)
             objectSymbol = '#';
+        else if(this instanceof Bullet)
+            objectSymbol = '*';
 
         char[][] bitmap = new char[getHeight()][getWidth()];
         for (int i = 0; i < getHeight(); i++)

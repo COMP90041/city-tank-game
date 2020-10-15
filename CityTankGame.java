@@ -69,6 +69,9 @@ public class CityTankGame
         case 's':
           playerTank.move(Commands.Direction.RIGHT, mainRenderer);
           break;
+        case 'f':
+          Bullet newBullet = playerTank.fire();
+          mainRenderer.addBullet(newBullet);
         default:
           //do nothing
           break;
