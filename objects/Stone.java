@@ -4,8 +4,11 @@ import graphics.Color;
 
 public class Stone extends GameObject {
 
-    public Stone(int rowIndex, int colIndex) {
-        super(rowIndex, colIndex, 2, 2, Color.ANSI_YELLOW);
+    public static final char objectSymbol = 0x250C; //0x250C is the Unicode ID of the character 218 in the ASCII table
+
+    public Stone(int rowPos, int colPos) {
+        super(rowPos, colPos, 2, 2, Color.ANSI_YELLOW);
+        drawingSymbol = objectSymbol;
     }
 
     public char[][] draw()

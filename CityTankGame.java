@@ -18,23 +18,25 @@ public class CityTankGame
     Tank enemyTank1 = new Tank(5, 20, Commands.Direction.DOWN);
     Tank enemyTank2 = new Tank(5, 60, Commands.Direction.RIGHT);
 
-    Stone stone1 = new Stone(10, 20);
-    Stone stone2 = new Stone(12, 20);
-    Stone stone3 = new Stone(30, 38);
-    Stone stone4 = new Stone(30, 40);
-    Stone stone5 = new Stone(32, 36);
-
-    //Create the main renderer and add player tank
+    //Create the main renderer and add game objects
     Renderer mainRenderer = new Renderer(80, 40);
-    mainRenderer.addTank(playerTank);
-    mainRenderer.addTank(enemyTank1);
-    mainRenderer.addTank(enemyTank2);
+    mainRenderer.addObject(playerTank);
+    mainRenderer.addObject(enemyTank1);
+    mainRenderer.addObject(enemyTank2);
 
-    mainRenderer.addStone(stone1);
-    mainRenderer.addStone(stone2);
-    mainRenderer.addStone(stone3);
-    mainRenderer.addStone(stone4);
-    mainRenderer.addStone(stone5);
+    mainRenderer.addObject(new Stone(10, 20));
+    mainRenderer.addObject(new Stone(12, 20));
+    mainRenderer.addObject(new Stone(30, 38));
+    mainRenderer.addObject(new Stone(30, 40));
+    mainRenderer.addObject(new Stone(32, 36));
+
+    mainRenderer.addObject(new Brick(20, 50));
+    mainRenderer.addObject(new Brick(22, 50));
+    mainRenderer.addObject(new Brick(20, 52));
+    mainRenderer.addObject(new Brick(22, 52));
+    mainRenderer.addObject(new Brick(30, 60));
+    mainRenderer.addObject(new Brick(30, 62));
+
 
     //The main game loop
     do
@@ -71,7 +73,7 @@ public class CityTankGame
           break;
         case 'f':
           Bullet newBullet = playerTank.fire();
-          mainRenderer.addBullet(newBullet);
+          mainRenderer.addObject(newBullet);
         default:
           //do nothing
           break;

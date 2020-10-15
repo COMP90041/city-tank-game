@@ -3,19 +3,27 @@ package objects;
 import graphics.*;
 import utilities.*;
 
-public class Bullet extends GameObject
+public class Bullet extends GameObject implements Movable
 {
   private Commands.Direction curDirection;
 
-  public Bullet(int rowIndex, int colIndex, Commands.Direction direction)
+  public static final char objectSymbol = '*';
+
+  public Bullet(int rowPos, int colPos, Commands.Direction direction)
   {
-    super(rowIndex, colIndex, 1, 1, Color.ANSI_RED);
+    super(rowPos, colPos, 1, 1, Color.ANSI_RED);
     curDirection = direction;
+    drawingSymbol = objectSymbol;
   }
 
-  public void move(Renderer mainRenderer)
+  public Commands.Direction getCurDirection()
   {
-     switch (curDirection)
+    return curDirection;
+  }
+
+  public void move(Commands.Direction direction, Renderer mainRenderer)
+  {
+     switch (direction)
      {
       case UP:
         setRowPos(getRowPos() - 1);

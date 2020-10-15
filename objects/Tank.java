@@ -3,20 +3,28 @@ package objects;
 import graphics.*;
 import utilities.*;
 
-public class Tank extends GameObject
+public class Tank extends GameObject implements Movable
 {
   private Commands.Direction curDirection;
 
-  public Tank(int rowIndex, int colIndex)
+  public static final char objectSymbol = '*';
+
+  public Tank(int rowPos, int colPos)
   {
-    super(rowIndex, colIndex, 5, 5, Color.ANSI_BLUE);
+    super(rowPos, colPos, 5, 5, Color.ANSI_BLUE);
     curDirection = Commands.Direction.UP;
+    drawingSymbol = objectSymbol;
   }
 
-  public Tank(int rowIndex, int colIndex, Commands.Direction direction)
+  public Tank(int rowPos, int colPos, Commands.Direction direction)
   {
-    this(rowIndex, colIndex);
+    this(rowPos, colPos);
     curDirection = direction;
+  }
+
+  public Commands.Direction getCurDirection()
+  {
+    return curDirection;
   }
 
   public void move(Commands.Direction cmd, Renderer mainRenderer)

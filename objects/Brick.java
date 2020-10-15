@@ -4,8 +4,11 @@ import graphics.Color;
 
 public class Brick extends GameObject {
 
-    public Brick(int rowIndex, int colIndex) {
-        super(rowIndex, colIndex, 2, 2, Color.ANSI_WHITE);
+    public static final char objectSymbol = '#';
+
+    public Brick(int rowPos, int colPos) {
+      super(rowPos, colPos, 2, 2, Color.ANSI_WHITE);
+      drawingSymbol = objectSymbol;  
     }
 
     public char[][] draw()

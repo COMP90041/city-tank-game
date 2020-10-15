@@ -1,68 +1,26 @@
 package graphics;
 
 import objects.*;
+import java.util.ArrayList;
 
 public class Renderer
 {
-  private Tank[] tanks;
-  private Stone[] stones;
-  private Brick[] bricks;
-  private Bullet[] bullets;
-
-  private int tankCount;
-  private int stoneCount;
-  private int brickCount;
-  private int bulletCount;
+  private ArrayList<GameObject> objects;
 
   private int width, height;
   private char[][] bitmap;
   private String[][] colourBitmap;
 
-  private char borderChar = '.';
+  private static final char borderChar = '.';
 
   public Renderer(int aWidth, int aHeight)
   {
     width = aWidth;
     height = aHeight;
-    tanks = new Tank[21];
-    stones = new Stone[30];
-    bricks = new Brick[40];
-    bullets = new Bullet[100];
-    tankCount = stoneCount = brickCount = 0;
+    objects = new ArrayList<GameObject>();
   }
 
-  public int getTankCount() {
-    return tankCount;
-  }
-
-  public Tank[] getTanks() {
-    return tanks;
-  }
-
-  public int getStoneCount() {
-    return stoneCount;
-  }
-
-  public Stone[] getStones() {
-    return stones;
-  }
-
-  public int getBrickCount() {
-    return brickCount;
-  }
-
-  public Brick[] getBricks() {
-    return bricks;
-  }
-
-  public int getBulletCount() {
-    return bulletCount;
-  }
-
-  public Bullet[] getBullets() {
-    return bullets;
-  }
-
+  //setters and getters
   public int getHeight() {
     return height;
   }
@@ -75,62 +33,9 @@ public class Renderer
     return bitmap;
   }
 
-  public void addTank(Tank aTank)
-  {
-    if (tankCount < 21)
-    {
-      tanks[tankCount] = aTank;
-      tankCount++;
-    }
-    else
-    {
-      System.out.println("Fatal Error!");
-      System.exit(1);
-    }
+  public void addObject(GameObject newObject) {
+    objects.add(newObject);
   }
-
-  public void addStone(Stone aStone)
-  {
-    if (stoneCount < 30)
-    {
-      stones[stoneCount] = aStone;
-      stoneCount++;
-    }
-    else
-    {
-      System.out.println("Fatal Error!");
-      System.exit(1);
-    }
-  }
-
-  public void addBrick(Brick aBrick)
-  {
-    if (brickCount < 40)
-    {
-      bricks[brickCount] = aBrick;
-      brickCount++;
-    }
-    else
-    {
-      System.out.println("Fatal Error!");
-      System.exit(1);
-    }
-  }
-
-  public void addBullet(Bullet aBullet)
-  {
-    if (bulletCount < 100)
-    {
-      bullets[bulletCount] = aBullet;
-      bulletCount++;
-    }
-    else
-    {
-      System.out.println("Fatal Error!");
-      System.exit(1);
-    }
-  }
-
 
   public void render()
   {
@@ -148,71 +53,24 @@ public class Renderer
       }
     }
     
-    // render objects
-    // render tanks
-    for (int index = 0; index < tankCount; index++)
+    //render objects
+    for (GameObject obj : objects)
     {
-      Tank aTank = tanks[index];
-      String tankColour = aTank.getColor();
-      char[][] aTankBitmap = aTank.draw();
-      for (i = 0; i < aTank.getHeight(); i++)
-      {
-        for (j = 0; j < aTank.getWidth(); j++)
-        {
-          bitmap[aTank.getRowPos() + i][aTank.getColPos() + j] = aTankBitmap[i][j];
-          colourBitmap[aTank.getRowPos() + i][aTank.getColPos() + j] = tankColour;
-        }
+      //Bullet-specific handling code
+      if (obj instanceof Bullet) {
+        Bullet aBullet = (Bullet) obj;
+        aBullet.move(aBullet.getCurDirection(), this);
+        if (!aBullet.isAlive()) continue;
       }
-    }
 
-    // render stones
-    for (int index = 0; index < stoneCount; index++)
-    {
-      Stone aStone = stones[index];
-      String stoneColour = aStone.getColor();
-      char[][] aStoneBitmap = aStone.draw();
-      for (i = 0; i < aStone.getHeight(); i++)
+      String objColor = obj.getColor();
+      char[][] objBitmap = obj.draw();
+      for (i = 0; i < obj.getHeight(); i++)
       {
-        for (j = 0; j < aStone.getWidth(); j++)
+        for (j = 0; j < obj.getWidth(); j++)
         {
-          bitmap[aStone.getRowPos() + i][aStone.getColPos() + j] = aStoneBitmap[i][j];
-          colourBitmap[aStone.getRowPos() + i][aStone.getColPos() + j] = stoneColour;
-        }
-      }
-    }
-
-    // render bricks
-    for (int index = 0; index < brickCount; index++)
-    {
-      Brick aBrick = bricks[index];
-      String brickColour = aBrick.getColor();
-      char[][] aBrickBitmap = aBrick.draw();
-      for (i = 0; i < aBrick.getHeight(); i++)
-      {
-        for (j = 0; j < aBrick.getWidth(); j++)
-        {
-          bitmap[aBrick.getRowPos() + i][aBrick.getColPos() + j] = aBrickBitmap[i][j];
-          colourBitmap[aBrick.getRowPos() + i][aBrick.getColPos() + j] = brickColour;
-        }
-      }
-    }
-
-    // render bullets
-    for (int index = 0; index < bulletCount; index++)
-    {
-      Bullet aBullet = bullets[index];
-
-      aBullet.move(this);
-      if (!aBullet.isAlive()) continue;
-
-      String bulletColour = aBullet.getColor();
-      char[][] aBulletBitmap = aBullet.draw();
-      for (i = 0; i < aBullet.getHeight(); i++)
-      {
-        for (j = 0; j < aBullet.getWidth(); j++)
-        {
-          bitmap[aBullet.getRowPos() + i][aBullet.getColPos() + j] = aBulletBitmap[i][j];
-          colourBitmap[aBullet.getRowPos() + i][aBullet.getColPos() + j] = bulletColour;
+          bitmap[obj.getRowPos() + i][obj.getColPos() + j] = objBitmap[i][j];
+          colourBitmap[obj.getRowPos() + i][obj.getColPos() + j] = objColor;
         }
       }
     }
@@ -240,6 +98,7 @@ public class Renderer
     {
       System.out.print(Color.ANSI_RED + borderChar + Color.ANSI_RESET);
     }
+
     System.out.println();
   }
 }
