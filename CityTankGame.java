@@ -2,6 +2,7 @@ import objects.*;
 import graphics.*;
 import utilities.*;
 import java.util.Scanner;
+import java.util.Random;
 
 public class CityTankGame
 {
@@ -9,6 +10,7 @@ public class CityTankGame
   {
     //Create a scanner to take user input
     Scanner keyboard = new Scanner(System.in);
+    Random random = new Random();
 
     //Create a player tank
     Tank playerTank = new Tank(35, 38);
@@ -78,6 +80,10 @@ public class CityTankGame
           //do nothing
           break;
       }
+
+      //allows enemy tanks to move randomly
+      enemyTank1.move(Commands.Direction.values()[random.nextInt(3)], mainRenderer);
+      enemyTank2.move(Commands.Direction.values()[random.nextInt(3)], mainRenderer);
     }  while (true);
     keyboard.close();
   }
